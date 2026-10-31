@@ -12,7 +12,7 @@ class Persona:
         self.random_gen = SeededRandom(config.seed)
 
         self.logger.info(
-            "Персона создана",
+            "Persona created",
             persona_id=config.persona_id,
             seed=self.random_gen.get_seed()
         )

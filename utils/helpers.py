@@ -17,31 +17,31 @@ def get_hormone_state(level: float) -> dict:
         return {
             "state": "critical_high",
             "description": "critical high",
-            "effects": ["эйфория", "гиперактивность","риск"]
+            "effects": ["euphoria", "hyperactivity","risk"]
         }
     elif level >= 60:
         return {
             "state": "high",
             "description": "high",
-            "effects": ["активность", "мотивация"]
+            "effects": ["activity", "motivation"]
         }
     elif level >= 40:
         return {
             "state": "normal",
             "description": "normal",
-            "effects": ["стабильность", "баланс"]
+            "effects": ["stability", "balance"]
         }
     elif level >= 20:
         return {
             "state": "low",
             "description": "low",
-            "effects": ["апатия", "усталость"]
+            "effects": ["apathy", "fatigue"]
         }
     else:
         return {
             "state": "very low",
             "description": "very low",
-            "effects": ["депрессия", "истощение"]
+            "effects": ["depression", "exhaustion"]
         }
 
 def clamp(value: float, min_val: float = 0.0, max_val: float = 100.0) -> float:

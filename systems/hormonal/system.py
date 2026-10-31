@@ -26,14 +26,14 @@ class HormonalSystem:
 
         if self.logger:
             self.logger.info(
-                "гормональная система инит",
+                "Hormonal system init",
                 hormones_count = len(self.hormones),
                 interaction_strength=config.interaction_strength 
             )
 
     def update(self,time_delta_minutes:float):
         self.logger.debug(
-            "Начало обновления гормональной системы",
+            "Starting update hormonal system",
             time_delta=time_delta_minutes
         )
 
@@ -46,7 +46,7 @@ class HormonalSystem:
         if self.config.fluctuation_enabled:
             self._apply_random_fluctuations()
 
-        self.logger.debug("Завершение обновление гормональной системы")
+        self.logger.debug("Ending update hormonal system")
     def _apply_hormone_interactions(self):
         interactions_applied = []
         
@@ -71,7 +71,7 @@ class HormonalSystem:
         
         if interactions_applied:
             self.logger.debug(
-                "Применены взаимодействия гормонов",
+                "Applied hormones interactions",
                 interactions=interactions_applied
             )
 
@@ -89,13 +89,13 @@ class HormonalSystem:
                     fluctuations_applied.append(hormone_name)
         if fluctuations_applied:
             self.logger.debug(
-                "Применены случайные флуктуации",
+                "Applied random fluctuations",
                 hormones=fluctuations_applied
             )
 
     def apply_event(self, event: TriggerEvent):
         self.logger.info(
-            "Применение события к гормональной системе",
+            "Applied event to hormonal system",
             event_name = event.name,
             category=event.category,
             intensity=event.intensity
@@ -103,7 +103,7 @@ class HormonalSystem:
 
         applied_triggers = self.trigger_manager.apply_event(event, self.hormones)
         self.logger.info(
-            "Собиытие применено",
+            "Event applied",
             affected_hormones=list(applied_triggers.keys())
         )
 

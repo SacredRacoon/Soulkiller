@@ -14,81 +14,81 @@ class TriggerManager:
         self.trigger_database:Dict[str,Dict[str, List[HormoneTrigger]]] ={
             "dopamine": {
                 "achievement": [
-                    HormoneTrigger("достижение_цели", 25.0, 5.0, 0.15),
-                    HormoneTrigger("маленькая_победа", 10.0, 2.0, 0.20),
+                    HormoneTrigger("goal_achievement", 25.0, 5.0, 0.15),
+                    HormoneTrigger("little_win", 10.0, 2.0, 0.20),
                 ],
                 "novelty": [
-                    HormoneTrigger("новое_переживание", 15.0, 3.0, 0.18),
-                    HormoneTrigger("неожиданность", 8.0, 1.5, 0.25),
+                    HormoneTrigger("new_experiences", 15.0, 3.0, 0.18),
+                    HormoneTrigger("surprise", 8.0, 1.5, 0.25),
                 ],
                 "social": [
-                    HormoneTrigger("социальное_одобрение", 20.0, 4.0, 0.15),
-                    HormoneTrigger("похвала", 15.0, 3.0, 0.18),
+                    HormoneTrigger("social_approval", 20.0, 4.0, 0.15),
+                    HormoneTrigger("praise", 15.0, 3.0, 0.18),
                 ],
                 "pleasure": [
-                    HormoneTrigger("вкусная_еда", 10.0, 2.0, 0.25),
-                    HormoneTrigger("развлечения", 15.0, 3.0, 0.18),
+                    HormoneTrigger("tasty_food", 10.0, 2.0, 0.25),
+                    HormoneTrigger("entertainments", 15.0, 3.0, 0.18),
                 ]
             },
             "serotonin": {
                 "environmental": [
-                    HormoneTrigger("солнечный_свет", 10.0, 5.0, 0.10),
-                    HormoneTrigger("природа", 12.0, 4.0, 0.12),
+                    HormoneTrigger("sun_light", 10.0, 5.0, 0.10),
+                    HormoneTrigger("nature", 12.0, 4.0, 0.12),
                 ],
                 "physical": [
-                    HormoneTrigger("физическая_активность", 15.0, 3.0, 0.15),
-                    HormoneTrigger("медитация", 20.0, 5.0, 0.10),
+                    HormoneTrigger("physical_activity", 15.0, 3.0, 0.15),
+                    HormoneTrigger("meditation", 20.0, 5.0, 0.10),
                 ],
                 "social": [
-                    HormoneTrigger("теплый_контакт", 10.0, 3.0, 0.18),
+                    HormoneTrigger("warm_contact", 10.0, 3.0, 0.18),
                 ],
                 "negative": [
-                    HormoneTrigger("стресс", -15.0, 4.0, 0.12),
-                    HormoneTrigger("одиночество", -8.0, 10.0, 0.08),
+                    HormoneTrigger("stress", -15.0, 4.0, 0.12),
+                    HormoneTrigger("loneliness", -8.0, 10.0, 0.08),
                 ]
             },
             "cortisol": {
                 "threat": [
-                    HormoneTrigger("опасность", 35.0, 3.0, 0.08),
-                    HormoneTrigger("конфликт", 25.0, 5.0, 0.10),
+                    HormoneTrigger("danger", 35.0, 3.0, 0.08),
+                    HormoneTrigger("conflict", 25.0, 5.0, 0.10),
                 ],
                 "pressure": [
-                    HormoneTrigger("дедлайн", 20.0, 8.0, 0.12),
-                    HormoneTrigger("неопределенность", 15.0, 6.0, 0.15),
+                    HormoneTrigger("deadline", 20.0, 8.0, 0.12),
+                    HormoneTrigger("uncertainty", 15.0, 6.0, 0.15),
                 ],
                 "physical": [
-                    HormoneTrigger("недосып", 15.0, 12.0, 0.08),
-                    HormoneTrigger("голод", 10.0, 8.0, 0.10),
+                    HormoneTrigger("lack_sleep", 15.0, 12.0, 0.08),
+                    HormoneTrigger("hunger", 10.0, 8.0, 0.10),
                 ],
                 "relief": [
-                    HormoneTrigger("безопасность", -20.0, 5.0, 0.15),
-                    HormoneTrigger("решение_проблемы", -25.0, 4.0, 0.18),
+                    HormoneTrigger("safety", -20.0, 5.0, 0.15),
+                    HormoneTrigger("problem_solving", -25.0, 4.0, 0.18),
                 ]
             },
             "adrenaline": {
                 "excitement": [
-                    HormoneTrigger("азарт", 25.0, 2.0, 0.20),
-                    HormoneTrigger("риск", 30.0, 3.0, 0.15),
+                    HormoneTrigger("gamble", 25.0, 2.0, 0.20),
+                    HormoneTrigger("risk", 30.0, 3.0, 0.15),
                 ],
                 "physical": [
-                    HormoneTrigger("физическая_нагрузка", 20.0, 4.0, 0.18),
-                    HormoneTrigger("кофеин", 25.0, 3.0, 0.12),
+                    HormoneTrigger("physical_activity", 20.0, 4.0, 0.18),
+                    HormoneTrigger("caffeine", 25.0, 3.0, 0.12),
                 ],
                 "emotional": [
-                    HormoneTrigger("гнев", 30.0, 2.5, 0.15),
-                    HormoneTrigger("страх", 35.0, 2.0, 0.12),
+                    HormoneTrigger("anger", 30.0, 2.5, 0.15),
+                    HormoneTrigger("fear", 35.0, 2.0, 0.12),
                 ]
             },
             "oxytocin": {
                 "social": [
-                    HormoneTrigger("физический_контакт", 25.0, 3.0, 0.15),
-                    HormoneTrigger("доверительный_разговор", 20.0, 4.0, 0.12),
-                    HormoneTrigger("помощь_другим", 15.0, 3.0, 0.18),
+                    HormoneTrigger("physical_contact", 25.0, 3.0, 0.15),
+                    HormoneTrigger("confidential_conversation", 20.0, 4.0, 0.12),
+                    HormoneTrigger("helping_    others", 15.0, 3.0, 0.18),
                 ],
                 "negative": [
-                    HormoneTrigger("предательство", -40.0, 10.0, 0.05),
-                    HormoneTrigger("конфликт", -20.0, 5.0, 0.10),
-                    HormoneTrigger("изоляция", -10.0, 8.0, 0.08),
+                    HormoneTrigger("betrayal", -40.0, 10.0, 0.05),
+                    HormoneTrigger("conflict", -20.0, 5.0, 0.10),
+                    HormoneTrigger("isolation", -10.0, 8.0, 0.08),
                 ]
             } 
         }

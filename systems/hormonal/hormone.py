@@ -27,7 +27,7 @@ class Hormone:
         self.logger = logger
         if self.logger:
             self.logger.debug(
-                f"Гормон[{self.name}] инициализирован",
+                f"Hormone [{self.name}] init",
                 baseline=baseline,
                 recovery_rate=recovery_rate,
                 sensitivity=sensitivity
@@ -35,7 +35,7 @@ class Hormone:
     def get_value(self) -> float:
         return self.current_value
 
-    def set_value(self, new_value: float, reason: str = "прямая установка"):
+    def set_value(self, new_value: float, reason: str = "direct order"):
         old_value = self.current_value
         self.current_value = clamp(new_value, self.min_value, self.max_value)
 
@@ -45,33 +45,38 @@ class Hormone:
             )
 
     def apply_trigger(self, trigger: HormoneTrigger):
+        old_value = self.current_value
+
+        immediate_effect = trigger.intensity * self.sensitivity
+        self.current_value = clamp(
+            self.current_value + immediate_effect,
+            self.min_value,
+            self.max_value
+        )
+
         self.active_triggers.append(trigger)
         if self.logger:
             self.logger.debug(
-                f"Гормон [{self.name}] применен триггер",
+                f"Hormon [{self.name}] applied trigger",
                 trigger_name = trigger.name,
                 intensity = trigger.intensity,
                 duration = trigger.duration_minutes
             )
 
+            if abs(self.current_value - old_value) > 0.01:
+                self.logger.hormone_change(
+                    self.name, old_value, self.current_value,
+                    f"trigger [{trigger.name}]"
+                )
+
     def update(self, time_delta_minutes: float):
         old_value = self.current_value
-        trigger_effect = 0.0
         expired_triggers = []
 
         for trigger in self.active_triggers:
-            effect = trigger.intensity * self.sensitivity
-            trigger_effect += effect
-            if self.logger and abs(effect) > 0.1:
-                self.logger.debug(
-                    f"Гормон [{self.name}]: активный триггер [{trigger.name}]",
-                    effect=effect,
-                    remaining_intensity=trigger.intensity,
-                    remaining_duration=trigger.duration_minutes
-                )
-
             trigger.intensity *= (1 - trigger.decay_rate * time_delta_minutes)
             trigger.duration_minutes -= time_delta_minutes
+
             if trigger.duration_minutes <= 0 or abs(trigger.intensity) < 0.01:
                 expired_triggers.append(trigger)
 
@@ -79,12 +84,9 @@ class Hormone:
             self.active_triggers.remove(trigger)
             if self.logger:
                 self.logger.debug(
-                    f"Гормон [{self.name}] триггер истек",
-                    trigger_name=trigger.name
+                    f"Hormone [{self.name}] trigger expired",
+                    trigger_name = trigger.name
                 )
-
-        if trigger_effect != 0:
-            self.current_value += trigger_effect * time_delta_minutes
 
         self.current_value = calculate_change(
             self.current_value, self.baseline,
@@ -96,7 +98,7 @@ class Hormone:
         if self.logger and abs(self.current_value - old_value) > 0.01:
             self.logger.hormone_change(
                 self.name, old_value, self.current_value,
-                f"обновление за {time_delta_minutes} мин"
+                f"update for {time_delta_minutes} min"
             )
 
     def apply_fluctuation(self, change: float):
@@ -108,7 +110,7 @@ class Hormone:
 
         if self.logger and abs(self.current_value - old_value) > 0.01:
             self.logger.debug(
-                f"Гормон [{self.name}] микро флуктуация",
+                f"Hormone [{self.name}] micro fluctuation",
                 old_value = old_value,
                 new_value = self.current_value,
                 change = change

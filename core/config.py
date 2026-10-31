@@ -12,11 +12,11 @@ class HormoneConfig:
 
     def __post_init__(self):
             if not 0 <= self.baseline <= 100:
-                raise ValueError(f"baseline должен быть 0-100, получено {self.baseline}")
+                raise ValueError(f"baseline must be 0-100, input {self.baseline}")
             if self.recovery_rate < 0:
-                raise ValueError(f"recovery_rate не может быть отрицательным")
+                raise ValueError(f"recovery_rate cannot be negative")
             if self.min_value >= self.max_value:
-                raise ValueError(f"min_value должен быть меньше max_value")
+                raise ValueError(f"min_value must be lower than max_value")
 @dataclass
 class HormonalSystemConfig:
     hormones: Dict[str, HormoneConfig] = field(default_factory=dict)

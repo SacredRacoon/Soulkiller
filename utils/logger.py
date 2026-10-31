@@ -60,11 +60,11 @@ class PersonaLogger:
 
     def hormone_change(self, hormone_name: str, old_value: float, new_value: float, reason: str, **kwargs):
         change = new_value - old_value
-        direction = "UP" if change > 0 else "DOWN" if change < 0 else "="
+        direction = "UP " if change > 0 else "DOWN " if change < 0 else "="
 
-        message = (f"Гормон [{hormone_name}]"
+        message = (f"Hormone [{hormone_name}]"
                    f"{old_value:.2f} changed to {new_value:.2f}"
-                   f"({direction}{abs(change):.2f}), причина {reason}")
+                   f"({direction}{abs(change):.2f}), reason {reason}")
 
         self.info(message, **kwargs)
 

@@ -14,17 +14,17 @@ class PersonaState:
             config.hormonal, logger, random_gen
         )
 
-        self.logger.info("Состояние персоны инит")
+        self.logger.info("PersonaState init")
 
     def update(self, time_delta_minutes:float):
         self.logger.debug(
-            "Начало обновления состояния персоны",
+            "Starting update persona state",
             time_delta = time_delta_minutes
         )
 
         self.hormonal_system.update(time_delta_minutes)
 
-        self.logger.debug("Завершение обновления состояния персоны")
+        self.logger.debug("Ending update persona state")
 
     def to_dict(self) -> dict:
         return {

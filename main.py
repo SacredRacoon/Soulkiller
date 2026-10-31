@@ -20,44 +20,44 @@ def main():
     for hormone, value in initial_state.items():
         print(f"    {hormone:12s}: {value:6.2f}")
 
-    print("\n симуляция 10 минут без событий")
+    print("\n 10 minutes simulation without events")
     persona.update(10.0)
 
     state_after = persona.get_hormonal_state()
-    print("\n состояние после 10 минут")
+    print("\n state after 10 minutes")
     for hormone, value in state_after.items():
         change= value - initial_state[hormone]
         direction = "UP " if change > 0 else "DOWN " if change < 0 else "="
         print(f"    {hormone:12s}: {value:6.2f} ({direction}{abs(change):.2f})")
 
-    print("\n достижение цели")
+    print("\n goal completed")
     achievement_event = TriggerEvent(
-        name="достиг_цели",
+        name="goal_achievement",
         category="achievement",
         intensity=0.8,
-        description="Персона успешно завершила важный проект"
+        description="Persona succesfuly complete important project"
     )
 
     persona.state.hormonal_system.apply_event(achievement_event)
 
     state_after_event =persona.get_hormonal_state()
-    print("\n состояние после события")
+    print("\n state after event")
     for hormone, value in state_after_event.items():
             change= value - state_after[hormone]
             direction = "UP " if change > 0 else "DOWN " if change < 0 else "="
             print(f"    {hormone:12s}: {value:6.2f} ({direction}{abs(change):.2f})")
     
-    print("\n симуляция 5 минут после события")
+    print("\n 5 minutes simulation after event")
     persona.update(5.0)
 
     final_state = persona.get_hormonal_state()
-    print("\n финальное состояние")
+    print("\n final state")
     for hormone, value in final_state.items():
         change = value - state_after_event[hormone]  
         direction = "UP " if change > 0 else "DOWN " if change < 0 else "="
         print(f"    {hormone:12s}: {value:6.2f} ({direction}{abs(change):.2f})")
 
-    print("Симуляция завершена")
-    print(f"Логи сохранены в директории {config.log_dir}")
+    print("Simulation ended")
+    print(f"Logs saved to {config.log_dir}")
 if __name__ == "__main__":
     main()
