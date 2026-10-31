@@ -5,7 +5,7 @@ from typing import Dict, Optional
 class HormoneConfig:
     name:str
     baseline: float = 50.0
-    recory_rate: float = 1.0
+    recovery_rate: float = 1.0
     sensitivity: float = 1.0
     min_value: float = 0.0
     max_value: float = 100.0
@@ -20,7 +20,7 @@ class HormonalSystemConfig:
     fluctuation_probability: float = 0.30
     fluctuation_range: tuple = (-0.02, 0.02)
 
-    def __post__init__(self):
+    def __post_init__(self):
         if not self.hormones:
             self.hormones = {
                 "dopamine": HormoneConfig(

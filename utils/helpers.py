@@ -1,7 +1,6 @@
 from typing import Union
 
 def format_hormone_level(level: float) -> str:
-
     if level >= 80:
         return "very high"
     elif level >= 60:
@@ -24,7 +23,7 @@ def get_hormone_state(level: float) -> dict:
         return {
             "state": "high",
             "description": "high",
-            "effects": ["активность", "мотивцаия"]
+            "effects": ["активность", "мотивация"]
         }
     elif level >= 40:
         return {
@@ -46,7 +45,7 @@ def get_hormone_state(level: float) -> dict:
         }
 
 def clamp(value: float, min_val: float = 0.0, max_val: float = 100.0) -> float:
-    return max(min_val, min(max_val), value)
+    return max(min_val, min(value, max_val))
 
 def calculate_change(current: float, target: float, rate: float, time_delta: float) -> float:
     change = (target - current) * rate * time_delta

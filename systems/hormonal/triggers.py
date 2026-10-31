@@ -8,11 +8,12 @@ class TriggerEvent:
     category: str
     intensity: float
     description: str = ""
-class TriggerManage:
+    
+class TriggerManager:
     def __init__(self):
         self.trigger_database:Dict[str,Dict[str, List[HormoneTrigger]]] ={
             "dopamine": {
-                "achievment": [
+                "achievement": [
                     HormoneTrigger("достижение_цели", 25.0, 5.0, 0.15),
                     HormoneTrigger("маленькая_победа", 10.0, 2.0, 0.20),
                 ],
@@ -26,7 +27,7 @@ class TriggerManage:
                 ],
                 "pleasure": [
                     HormoneTrigger("вкусная_еда", 10.0, 2.0, 0.25),
-                    HormoneTrigger("развлечения", 15.0, 3.0, 0.18)
+                    HormoneTrigger("развлечения", 15.0, 3.0, 0.18),
                 ]
             },
             "serotonin": {
@@ -106,14 +107,14 @@ class TriggerManage:
             if triggers:
                 scaled_triggers = []
                 for trigger in triggers:
-                    scaled_triggers = HormoneTrigger(
+                    scaled_trigger = HormoneTrigger(
                         name=trigger.name,
                         intensity=trigger.intensity  * event.intensity,
                         duration_minutes=trigger.duration_minutes,
                         decay_rate=trigger.decay_rate
                     )
-                    scaled_triggers.append(scaled_triggers)
-                    hormones[hormone_name].apply_trigger(scaled_triggers)
+                    scaled_triggers.append(scaled_trigger)
+                    hormones[hormone_name].apply_trigger(scaled_trigger)
                 applied_triggers[hormone_name] = scaled_triggers
 
         return applied_triggers

@@ -2,7 +2,8 @@ from dataclasses import dataclass
 from typing import List, Optional, Callable
 from utils.helpers import clamp, calculate_change
 from utils.logger import PersonaLogger
-
+    
+@dataclass
 class HormoneTrigger:
     name: str
     intensity: float
@@ -37,13 +38,13 @@ class Hormone:
         old_value = self.current_value
         self.current_value = clamp(new_value, self.min_value, self.max_value)
 
-        if self.logger and abs(self.current_value_value - old_value) > 0.01:
+        if self.logger and abs(self.current_value - old_value) > 0.01:
             self.logger.hormone_change(
                 self.name, old_value, self.current_value, reason
             )
 
     def apply_trigger(self, trigger: HormoneTrigger):
-        self.active_trigger.append(trigger)
+        self.active_triggers.append(trigger)
         if self.logger:
             self.logger.debug(
                 f"Гормон [{self.name}] применен триггер",
@@ -54,7 +55,7 @@ class Hormone:
 
     def update(self, time_delta_minutes: float):
         old_value = self.current_value
-        trigger_affect = 0.0
+        trigger_effect = 0.0
         expired_triggers = []
 
         for trigger in self.active_triggers:
@@ -66,7 +67,7 @@ class Hormone:
                 expired_triggers.append(trigger)
 
         for trigger in expired_triggers:
-            self.active_trigger.remove(trigger)
+            self.active_triggers.remove(trigger)
             if self.logger:
                 self.logger.debug(
                     f"Гормон [{self.name}] триггер истек",
@@ -83,7 +84,7 @@ class Hormone:
 
         self.current_value = clamp(self.current_value, self.min_value, self.max_value)
 
-        if self.logger and abs(self.current_value, self.min_value, self.max_value):
+        if self.logger and abs(self.current_value - old_value) > 0.01:
             self.logger.hormone_change(
                 self.name, old_value, self.current_value,
                 f"обновление за {time_delta_minutes} мин"
@@ -93,7 +94,7 @@ class Hormone:
         old_value = self.current_value
         self.current_value = clamp(
             self.current_value + change,
-            self.min_value, self.min_value
+            self.min_value, self.max_value
         )
 
         if self.logger and abs(self.current_value - old_value) > 0.01:
