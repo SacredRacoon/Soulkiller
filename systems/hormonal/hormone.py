@@ -2,7 +2,8 @@ from dataclasses import dataclass
 from typing import List, Optional, Callable
 from utils.helpers import clamp, calculate_change
 from utils.logger import PersonaLogger
-    
+from datetime import datetime
+
 @dataclass
 class HormoneTrigger:
     name: str
@@ -61,6 +62,14 @@ class Hormone:
         for trigger in self.active_triggers:
             effect = trigger.intensity * self.sensitivity
             trigger_effect += effect
+            if self.logger and abs(effect) > 0.1:
+                self.logger.debug(
+                    f"Гормон [{self.name}]: активный триггер [{trigger.name}]",
+                    effect=effect,
+                    remaining_intensity=trigger.intensity,
+                    remaining_duration=trigger.duration_minutes
+                )
+
             trigger.intensity *= (1 - trigger.decay_rate * time_delta_minutes)
             trigger.duration_minutes -= time_delta_minutes
             if trigger.duration_minutes <= 0 or abs(trigger.intensity) < 0.01:
@@ -117,4 +126,20 @@ class Hormone:
             "recovery_rate": self.recovery_rate,
             "sensitivity": self.sensitivity,
             "active_trigger_count": len((self.active_triggers))
+        }
+
+    def get_full_report(self) -> dict:
+        return {
+            "timestamp": datetime.now().isoformat(),
+            "hormones": {
+                name: {
+                    "value": hormone.current_value,
+                    "baseline": hormone.baseline,
+                    "deviation": hormone.current_value - hormone.baseline,
+                    "state": hormone.get_state_description(),
+                    "active_triggers": len(hormone.active_triggers)
+                }
+                for name, hormone in self.hormones.items()
+            },
+            "random_gen_stats": self.random_gen.get_stats()
         }

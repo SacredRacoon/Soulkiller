@@ -43,7 +43,7 @@ def main():
     state_after_event =persona.get_hormonal_state()
     print("\n состояние после события")
     for hormone, value in state_after_event.items():
-            change= value - initial_state[hormone]
+            change= value - state_after[hormone]
             direction = "UP " if change > 0 else "DOWN " if change < 0 else "="
             print(f"    {hormone:12s}: {value:6.2f} ({direction}{abs(change):.2f})")
     
@@ -53,7 +53,9 @@ def main():
     final_state = persona.get_hormonal_state()
     print("\n финальное состояние")
     for hormone, value in final_state.items():
-        print(f"    {hormone:12s}: {value:6.2f}")
+        change = value - state_after_event[hormone]  
+        direction = "UP " if change > 0 else "DOWN " if change < 0 else "="
+        print(f"    {hormone:12s}: {value:6.2f} ({direction}{abs(change):.2f})")
 
     print("Симуляция завершена")
     print(f"Логи сохранены в директории {config.log_dir}")

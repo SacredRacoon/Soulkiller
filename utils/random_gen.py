@@ -43,7 +43,7 @@ class SeededRandom:
         self.call_count += 1
         return self.rng.random() < chance
 
-    def floctuation(self,base_value: float, min_change: float = -0.02, max_change: float = 0.02) -> float:
+    def fluctuation(self,base_value: float, min_change: float = -0.02, max_change: float = 0.02) -> float:
         self.call_count += 1
         change = self.rng.uniform(min_change, max_change)
         return base_value + change
